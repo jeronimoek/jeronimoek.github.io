@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MercadoLibre</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="css/all.css" />
+    <style data-head-react="true">
+      @font-face {
+        font-family: "Proxima Nova";
+        font-weight: 300;
+        font-display: swap;
+        font-style: normal;
+        src: url(https://http2.mlstatic.com/ui/webfonts/v3.0.0/proxima-nova/proximanova-light.woff2)
+            format("woff2"),
+          url(https://http2.mlstatic.com/ui/webfonts/v3.0.0/proxima-nova/proximanova-light.woff)
+            format("woff"),
+          url(https://http2.mlstatic.com/ui/webfonts/v3.0.0/proxima-nova/proximanova-light.ttf)
+            format("truetype");
+      }
+      @font-face {
+        font-family: "Proxima Nova";
+        font-weight: 400;
+        font-display: swap;
+        font-style: normal;
+        src: url(https://http2.mlstatic.com/ui/webfonts/v3.0.0/proxima-nova/proximanova-regular.woff2)
+            format("woff2"),
+          url(https://http2.mlstatic.com/ui/webfonts/v3.0.0/proxima-nova/proximanova-regular.woff)
+            format("woff"),
+          url(https://http2.mlstatic.com/ui/webfonts/v3.0.0/proxima-nova/proximanova-regular.ttf)
+            format("truetype");
+      }
+      @font-face {
+        font-family: "Proxima Nova";
+        font-weight: 600;
+        font-display: swap;
+        font-style: normal;
+        src: url(https://http2.mlstatic.com/ui/webfonts/v3.0.0/proxima-nova/proximanova-semibold.woff2)
+            format("woff2"),
+          url(https://http2.mlstatic.com/ui/webfonts/v3.0.0/proxima-nova/proximanova-semibold.woff)
+            format("woff"),
+          url(https://http2.mlstatic.com/ui/webfonts/v3.0.0/proxima-nova/proximanova-semibold.ttf)
+            format("truetype");
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div id="header-nav">
+        <div id="header-nav-bound">
+          <nav id="nav-top">
+            <a id="nav-logo" href="#"></a>
+            <form
+              id="nav-search"
+              action="https://www.mercadolibre.com.ar/jm/search"
+              method="get"
+            >
+              <input
+                id="nav-search-input"
+                type="text"
+                name="as_word"
+                placeholder="Buscar productos, marcas y más…"
+              />
+              <button type="submit" id="nav-search-btn">
+                <i id="nav-search-icon" class="fa fa-search"></i>
+              </button>
+            </form>
+            <a id="mercado-puntos" href="#">
+              <img
+                id="mercado-puntos-img"
+                src="https://automatas.duckdns.org/portfolio/clonml/img/mercado_puntos.jpg"
+                alt=""
+              />
+            </a>
+          </nav>
+          <nav id="nav-bottom" class="nav">
+            <a id="direc" href="#">
+              <i id="direc-icon" class="fal fa-map-marker-alt fa-2x"></i>
+              <div id="direc-data">
+                <div id="direc-enviar">Enviar a</div>
+                <div id="direc-loc">Capital Federal</div>
+              </div>
+            </a>
+            <div id="sections">
+              <a class="section" id="categorias" href="http://www.bing.com">
+                <object id="categ-dropdown">
+                  Categorías
+                  <i class="dropdown-icon fal fa-caret-down"></i>
+                  <object id="categ-dropdown-cont">
+                    <a href="http://www.google.com">Vehículos</a>
+                    <a href="http://www.yahoo.com">Inmuebles</a>
+                    <a href="http://www.twitter.com">Tecnología</a>
+                  </object>
+                </object>
+              </a>
+              <a class="section" id="ofertas" href="#">Ofertas</a>
+              <a class="section" id="historial" href="#">Historial</a>
+              <a class="section" id="super" href="#">Supermercado</a>
+              <a class="section" id="moda" href="#">Moda</a>
+              <a class="section" id="vender" href="#">Vender</a>
+              <a class="section" id="ayuda" href="#">Ayuda</a>
+            </div>
+            <div id="user">
+              <a class="user-element" id="user-info" href="#">
+                <object id="user-dropdown">
+                  <i id="user-icon" class="element-icon fal fa-user-circle"></i>
+                  <span>Test</span>
+                  <i class="dropdown-icon fal fa-caret-down"></i>
+                  <object id="user-dropdown-cont">
+                    <a class="only-mobile" href="http://www.google.com"
+                      >Mis compras</a
+                    >
+                    <a class="only-mobile" href="http://www.google.com"
+                      >Favoritos</a
+                    >
+                    <div class="separator empty only-mobile"></div>
+                    <a href="http://www.google.com">Compras</a>
+                    <a href="http://www.yahoo.com">Preguntas</a>
+                    <div class="separator">
+                      <object>
+                        <a id="separator-cont" href="">Peliculas y series</a>
+                      </object>
+                    </div>
+                    <a href="">Mis datos</a>
+                    <a href="">Seguridad</a>
+                    <a href="">Privacidad</a>
+                    <div class="separator">
+                      <object>
+                        <a id="separator-cont" href="">Vender</a>
+                      </object>
+                    </div>
+                    <a href="">Salir</a>
+                  </object>
+                </object>
+              </a>
+              <a class="user-element only-pc" id="user-compras" href="#"
+                >Mis compras</a
+              >
+              <a class="user-element only-pc" id="favs" href="#">Favoritos</a>
+              <a class="user-element" id="notif" href="#">
+                <i id="notif-icon" class="element-icon fal fa-bell"></i>
+              </a>
+              <a class="user-element" id="carrito" href="#">
+                <i
+                  id="carrito-icon"
+                  class="element-icon fal fa-shopping-cart"
+                ></i>
+              </a>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
+    <div class="slider">
+      <div class="slides">
+        <div id="slide-1">
+          <img
+            class="slider-img"
+            src="https://automatas.duckdns.org/portfolio/clonml/img/1629470901533-home-sliderdesktop-2x.webp"
+            alt=""
+          />
+        </div>
+        <div id="slide-2">
+          <img
+            class="slider-img"
+            src="https://automatas.duckdns.org/portfolio/clonml/img/1629488133561-home-sliderdesktop2x.webp"
+            alt=""
+          />
+        </div>
+        <div id="slide-3">
+          <img
+            class="slider-img"
+            src="https://automatas.duckdns.org/portfolio/clonml/img/1629730274681-home-sliderdesktop-2x.webp"
+            alt=""
+          />
+        </div>
+        <div id="slide-4">
+          <img
+            class="slider-img"
+            src="https://automatas.duckdns.org/portfolio/clonml/img/1629921878691-home-mainsliderdesktop.webp"
+            alt=""
+          />
+        </div>
+      </div>
+      <a class="slider-a current"></a>
+      <a class="slider-a"></a>
+      <a class="slider-a"></a>
+      <a class="slider-a"></a>
+      <a class="move move-left" onclick="moveToLastBtn()"><</a>
+      <a class="move move-right" onclick="moveToNextBtn()">></a>
+    </div>
+    <main>
+      <h2 class="title">¡Aprovechá estos descuentazos!</h2>
+      <div class="descuentazos">
+        <a href="#">
+          <div class="descuentazos-item">
+            <div class="descuentazos-cont">
+              <img
+                class="descuentazos-img"
+                src="https://automatas.duckdns.org/portfolio/clonml/img/D_Q_NP_779413-MLA47149555456_082021-G.webp"
+                alt=""
+              />
+            </div>
+            <h3 class="descuentazos-title">DESCUENTAZOS</h3>
+          </div>
+        </a>
+        <a href="#">
+          <div class="descuentazos-item">
+            <div class="descuentazos-cont">
+              <img
+                class="descuentazos-img"
+                src="https://automatas.duckdns.org/portfolio/clonml/img/D_Q_NP_779413-MLA47149555456_082021-G.webp"
+                alt=""
+              />
+            </div>
+            <h3 class="descuentazos-title">DESCUENTAZOS</h3>
+          </div>
+        </a>
+        <a href="#">
+          <div class="descuentazos-item">
+            <div class="descuentazos-cont">
+              <img
+                class="descuentazos-img"
+                src="https://automatas.duckdns.org/portfolio/clonml/img/D_Q_NP_779413-MLA47149555456_082021-G.webp"
+                alt=""
+              />
+            </div>
+            <h3 class="descuentazos-title">OFERTAS RELÁMPAGO</h3>
+          </div>
+        </a>
+        <a></a>
+        <a href="#">
+          <div class="descuentazos-item">
+            <div class="descuentazos-cont">
+              <img
+                class="descuentazos-img"
+                src="https://automatas.duckdns.org/portfolio/clonml/img/D_Q_NP_779413-MLA47149555456_082021-G.webp"
+                alt=""
+              />
+            </div>
+            <h3 class="descuentazos-title">DESCUENTAZOS</h3>
+          </div>
+        </a>
+        <a href="#">
+          <div class="descuentazos-item">
+            <div class="descuentazos-cont">
+              <img
+                class="descuentazos-img"
+                src="https://automatas.duckdns.org/portfolio/clonml/img/D_Q_NP_779413-MLA47149555456_082021-G.webp"
+                alt=""
+              />
+            </div>
+            <h3 class="descuentazos-title">DESCUENTAZOS</h3>
+          </div>
+        </a>
+        <a href="#">
+          <div class="descuentazos-item">
+            <div class="descuentazos-cont">
+              <img
+                class="descuentazos-img"
+                src="https://automatas.duckdns.org/portfolio/clonml/img/D_Q_NP_779413-MLA47149555456_082021-G.webp"
+                alt=""
+              />
+            </div>
+            <h3 class="descuentazos-title">DESCUENTAZOS</h3>
+          </div>
+        </a>
+      </div>
+      <div class="ofertas-grid" id="ofertas-grid-1">
+        <div class="oferta-element element-small-size">
+          <a href="">
+            <div class="element-s-cont">
+              <img
+                class="element-s-img"
+                src="https://automatas.duckdns.org/portfolio/clonml/img/D_NQ_835117-MLA46165095519_052021-OO.webp"
+                alt=""
+              />
+            </div>
+            <div>
+              <div>
+                <span>Hasta</span>
+                <h3>30% off</h3>
+                <h4>Muebles y deco</h4>
+                <p>Ver ofertas</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="oferta-element element-small-size">
+          <a href="">
+            <div class="element-s-cont">
+              <img
+                class="element-s-img"
+                src="https://automatas.duckdns.org/portfolio/clonml/img/D_Q_NP_798940-MLA47076678408_082021-G.webp"
+                alt=""
+              />
+            </div>
+            <div>
+              <div>
+                <span>Hasta</span>
+                <h3>30% off</h3>
+                <h4>Muebles y deco</h4>
+                <p>Ver ofertas</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="oferta-element element-medium-size">
+          <a href="">
+            <div class="element-m-cont">
+              <img
+                class="element-m-img"
+                src="https://automatas.duckdns.org/portfolio/clonml/img/D_NQ_NP_993928-MLA47079390616_082021-C.webp"
+                alt=""
+              />
+            </div>
+            <div>
+              <div>
+                <span class="pre-title">Hasta</span>
+                <h3 class="title">30% off</h3>
+                <h4 class="subtitle">Muebles y deco</h4>
+                <p>Ver ofertas</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="oferta-element element-small-size">
+          <a href="">
+            <div class="element-s-cont">
+              <img
+                class="element-s-img"
+                src="https://automatas.duckdns.org/portfolio/clonml/img/D_Q_NP_783097-MLA47245859978_082021-G.webp"
+                alt=""
+              />
+            </div>
+            <div>
+              <div>
+                <span>Hasta</span>
+                <h3>30% off</h3>
+                <h4>Muebles y deco</h4>
+                <p>Ver ofertas</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="oferta-element element-small-size">
+          <a href="">
+            <div class="element-s-cont">
+              <img
+                class="element-s-img"
+                src="https://automatas.duckdns.org/portfolio/clonml/img/D_Q_NP_629472-MLA47076678479_082021-G.webp"
+                alt=""
+              />
+            </div>
+            <div>
+              <div>
+                <span>Hasta</span>
+                <h3>30% off</h3>
+                <h4>Muebles y deco</h4>
+                <p>Ver ofertas</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="oferta-element element-medium-size">
+          <a href="">
+            <div class="element-m-cont">
+              <img
+                class="element-m-img"
+                src="https://automatas.duckdns.org/portfolio/clonml/img/D_NQ_NP_685577-MLA47077444787_082021-C.webp"
+                alt=""
+              />
+            </div>
+            <div>
+              <div>
+                <span>Hasta</span>
+                <h3>30% off</h3>
+                <h4>Muebles y deco</h4>
+                <p>Ver ofertas</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="oferta-element element-medium-size">
+          <a href="">
+            <div class="element-m-cont">
+              <img
+                class="element-m-img"
+                src="https://automatas.duckdns.org/portfolio/clonml/img/D_NQ_NP_617015-MLA47079162209_082021-C.webp"
+                alt=""
+              />
+            </div>
+            <div>
+              <div>
+                <span>Hasta</span>
+                <h3>30% off</h3>
+                <h4>Muebles y deco</h4>
+                <p>Ver ofertas</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="oferta-element element-small-size">
+          <a href="">
+            <div class="element-s-cont">
+              <img
+                class="element-s-img"
+                src="https://automatas.duckdns.org/portfolio/clonml/img/D_Q_NP_723985-MLA47076594540_082021-G.webp"
+                alt=""
+              />
+            </div>
+            <div>
+              <div>
+                <span>Hasta</span>
+                <h3>30% off</h3>
+                <h4>Muebles y deco</h4>
+                <p>Ver ofertas</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="oferta-element element-small-size">
+          <a href="">
+            <div class="element-s-cont">
+              <img
+                class="element-s-img"
+                src="https://automatas.duckdns.org/portfolio/clonml/img/D_Q_NP_659130-MLA47076678605_082021-G.webp"
+                alt=""
+              />
+            </div>
+            <div>
+              <div>
+                <span>Hasta</span>
+                <h3>30% off</h3>
+                <h4>Muebles y deco</h4>
+                <p>Ver ofertas</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="oferta-element banner">
+          <a href="">
+            <div class="element-banner-cont">
+              <img
+                class="element-banner-img"
+                src="https://automatas.duckdns.org/portfolio/clonml/img/D_NQ_NP_905786-MLA47243970995_082021-OO.webp"
+                alt=""
+              />
+            </div>
+          </a>
+        </div>
+      </div>
+      <h2 class="title">Los mejores beneficios</h2>
+      <div class="ofertas-grid" id="ofertas-grid-2">
+        <div class="oferta-element semi-banner">
+          <a href="">
+            <div class="element-banner-cont">
+              <img
+                class="element-banner-img"
+                src="https://automatas.duckdns.org/portfolio/clonml/img/D_NQ_NP_877276-MLA47221697093_082021-OO.webp"
+                alt=""
+              />
+            </div>
+          </a>
+        </div>
+        <div class="oferta-element semi-banner">
+          <a href="">
+            <div class="element-banner-cont">
+              <img
+                class="element-banner-img"
+                src="https://automatas.duckdns.org/portfolio/clonml/img/D_NQ_NP_799933-MLA47202876488_082021-OO.webp"
+                alt=""
+              />
+            </div>
+          </a>
+        </div>
+        <div class="oferta-element banner">
+          <a href="">
+            <div class="element-banner-cont">
+              <img
+                class="element-banner-img"
+                src="https://automatas.duckdns.org/portfolio/clonml/img/D_NQ_NP_607495-MLA47258450481_082021-OO.webp"
+                alt=""
+              />
+            </div>
+          </a>
+        </div>
+      </div>
+      <h2 class="title">¡Muchas mas ofertas en tus productos favoritos!</h2>
+      <div class="ofertas-grid" id="ofertas-grid-3">
+        <div class="oferta-element element-small-size">
+          <a href="">
+            <div class="element-s-cont">
+              <img
+                class="element-s-img"
+                src="https://automatas.duckdns.org/portfolio/clonml/img/D_Q_NP_957303-MLA47076913244_082021-G.webp"
+                alt=""
+              />
+            </div>
+            <div>
+              <div>
+                <span>Hasta</span>
+                <h3>30% off</h3>
+                <h4>Muebles y deco</h4>
+                <p>Ver ofertas</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="oferta-element element-small-size">
+          <a href="">
+            <div class="element-s-cont">
+              <img class="element-s-img" src="https://automatas.duckdns.org/portfolio/clonml/img/casco.webp" alt="" />
+            </div>
+            <div>
+              <div>
+                <span>Hasta</span>
+                <h3>30% off</h3>
+                <h4>Muebles y deco</h4>
+                <p>Ver ofertas</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="oferta-element element-medium-size">
+          <a href="">
+            <div class="element-m-cont">
+              <img class="element-m-img" src="https://automatas.duckdns.org/portfolio/clonml/img/moda.webp" alt="" />
+            </div>
+            <div>
+              <div>
+                <span class="pre-title">Hasta</span>
+                <h3 class="title">30% off</h3>
+                <h4 class="subtitle">Muebles y deco</h4>
+                <p>Ver ofertas</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="oferta-element element-small-size">
+          <a href="">
+            <div class="element-s-cont">
+              <img class="element-s-img" src="https://automatas.duckdns.org/portfolio/clonml/img/aire.webp" alt="" />
+            </div>
+            <div>
+              <div>
+                <span>Hasta</span>
+                <h3>30% off</h3>
+                <h4>Muebles y deco</h4>
+                <p>Ver ofertas</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="oferta-element element-small-size">
+          <a href="">
+            <div class="element-s-cont">
+              <img
+                class="element-s-img"
+                src="https://automatas.duckdns.org/portfolio/clonml/img/cuidado_personal.webp"
+                alt=""
+              />
+            </div>
+            <div>
+              <div>
+                <span>Hasta</span>
+                <h3>30% off</h3>
+                <h4>Muebles y deco</h4>
+                <p>Ver ofertas</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="oferta-element element-medium-size">
+          <a href="">
+            <div class="element-m-cont">
+              <img class="element-m-img" src="https://automatas.duckdns.org/portfolio/clonml/img/gamer.webp" alt="" />
+            </div>
+            <div>
+              <div>
+                <span class="pre-title">Hasta</span>
+                <h3 class="title">30% off</h3>
+                <h4 class="subtitle">Muebles y deco</h4>
+                <p>Ver ofertas</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="oferta-element element-small-size">
+          <a href="">
+            <div class="element-s-cont">
+              <img
+                class="element-s-img"
+                src="https://automatas.duckdns.org/portfolio/clonml/img/pequeno_electro.webp"
+                alt=""
+              />
+            </div>
+            <div>
+              <div>
+                <span>Hasta</span>
+                <h3>30% off</h3>
+                <h4>Muebles y deco</h4>
+                <p>Ver ofertas</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="oferta-element element-small-size">
+          <a href="">
+            <div class="element-s-cont">
+              <img class="element-s-img" src="https://automatas.duckdns.org/portfolio/clonml/img/supermercado.webp" alt="" />
+            </div>
+            <div>
+              <div>
+                <span>Hasta</span>
+                <h3>30% off</h3>
+                <h4>Muebles y deco</h4>
+                <p>Ver ofertas</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="oferta-element element-small-size">
+          <a href="">
+            <div class="element-s-cont">
+              <img class="element-s-img" src="https://automatas.duckdns.org/portfolio/clonml/img/construccion.webp" alt="" />
+            </div>
+            <div>
+              <div>
+                <span>Hasta</span>
+                <h3>30% off</h3>
+                <h4>Muebles y deco</h4>
+                <p>Ver ofertas</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="oferta-element element-small-size">
+          <a href="">
+            <div class="element-s-cont">
+              <img class="element-s-img" src="https://automatas.duckdns.org/portfolio/clonml/img/juegos.webp" alt="" />
+            </div>
+            <div>
+              <div>
+                <span>Hasta</span>
+                <h3>30% off</h3>
+                <h4>Muebles y deco</h4>
+                <p>Ver ofertas</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="oferta-element element-medium-size">
+          <a href="">
+            <div class="element-m-cont">
+              <img class="element-m-img" src="https://automatas.duckdns.org/portfolio/clonml/img/farmacia.webp" alt="" />
+            </div>
+            <div>
+              <div>
+                <span class="pre-title">Hasta</span>
+                <h3 class="title">30% off</h3>
+                <h4 class="subtitle">Muebles y deco</h4>
+                <p>Ver ofertas</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="oferta-element element-small-size">
+          <a href="">
+            <div class="element-s-cont">
+              <img class="element-s-img" src="https://automatas.duckdns.org/portfolio/clonml/img/sustentables.webp" alt="" />
+            </div>
+            <div>
+              <div>
+                <span>Hasta</span>
+                <h3>30% off</h3>
+                <h4>Muebles y deco</h4>
+                <p>Ver ofertas</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="oferta-element element-small-size">
+          <a href="">
+            <div class="element-s-cont">
+              <img class="element-s-img" src="https://automatas.duckdns.org/portfolio/clonml/img/bebes.webp" alt="" />
+            </div>
+            <div>
+              <div>
+                <span>Hasta</span>
+                <h3>30% off</h3>
+                <h4>Muebles y deco</h4>
+                <p>Ver ofertas</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="oferta-element element-small-size">
+          <a href="">
+            <div class="element-s-cont">
+              <img class="element-s-img" src="https://automatas.duckdns.org/portfolio/clonml/img/libros.webp" alt="" />
+            </div>
+            <div>
+              <div>
+                <span>Hasta</span>
+                <h3>30% off</h3>
+                <h4>Muebles y deco</h4>
+                <p>Ver ofertas</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="oferta-element element-small-size">
+          <a href="">
+            <div class="element-s-cont">
+              <img class="element-s-img" src="https://automatas.duckdns.org/portfolio/clonml/img/instrumentos.webp" alt="" />
+            </div>
+            <div>
+              <div>
+                <span>Hasta</span>
+                <h3>30% off</h3>
+                <h4>Muebles y deco</h4>
+                <p>Ver ofertas</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="oferta-element banner">
+          <a href="">
+            <div class="element-banner-cont">
+              <img class="element-banner-img" src="https://automatas.duckdns.org/portfolio/clonml/img/samsung.webp" alt="" />
+            </div>
+          </a>
+        </div>
+        <div class="oferta-element semi-banner">
+          <a href="">
+            <div class="element-banner-cont">
+              <img
+                class="element-banner-img"
+                src="https://automatas.duckdns.org/portfolio/clonml/img/12_cuotas.webp"
+                alt=""
+              />
+            </div>
+          </a>
+        </div>
+        <div class="oferta-element semi-banner">
+          <a href="">
+            <div class="element-banner-cont">
+              <img class="element-banner-img" src="https://automatas.duckdns.org/portfolio/clonml/img/kit_qr.webp" alt="" />
+            </div>
+          </a>
+        </div>
+        <div class="oferta-element semi-banner">
+          <a href="">
+            <div class="element-banner-cont">
+              <img
+                class="element-banner-img"
+                src="https://automatas.duckdns.org/portfolio/clonml/img/whirlpool.webp"
+                alt=""
+              />
+            </div>
+          </a>
+        </div>
+        <div class="oferta-element semi-banner">
+          <a href="">
+            <div class="element-banner-cont">
+              <img class="element-banner-img" src="https://automatas.duckdns.org/portfolio/clonml/img/intel.webp" alt="" />
+            </div>
+          </a>
+        </div>
+        <div class="oferta-element element-small-size extended-element">
+          <a href="">
+            <div class="element-s-cont extended-cont">
+              <img
+                class="element-s-img extended-img"
+                src="https://automatas.duckdns.org/portfolio/clonml/img/D_Q_NP_800332-MLA47145639275_082021-V.webp"
+                alt=""
+              />
+            </div>
+            <div>
+              <div>
+                <span>Hasta</span>
+                <h3>30% off</h3>
+                <h4>Muebles y deco</h4>
+                <p>Ver ofertas</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="oferta-element element-small-size">
+          <a href="">
+            <div class="element-s-cont">
+              <img class="element-s-img" src="https://automatas.duckdns.org/portfolio/clonml/img/taladro.webp" alt="" />
+            </div>
+            <div>
+              <div>
+                <span>Hasta</span>
+                <h3>30% off</h3>
+                <h4>Muebles y deco</h4>
+                <p>Ver ofertas</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="oferta-element element-small-size extended-element">
+          <a href="">
+            <div class="element-s-cont extended-cont">
+              <img
+                class="element-s-img extended-img"
+                src="https://automatas.duckdns.org/portfolio/clonml/img/silla_gamer.webp"
+                alt=""
+              />
+            </div>
+            <div>
+              <div>
+                <span>Hasta</span>
+                <h3>30% off</h3>
+                <h4>Muebles y deco</h4>
+                <p>Ver ofertas</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="oferta-element element-small-size">
+          <a href="">
+            <div class="element-s-cont">
+              <img class="element-s-img" src="https://automatas.duckdns.org/portfolio/clonml/img/colchon.webp" alt="" />
+            </div>
+            <div>
+              <div>
+                <span>Hasta</span>
+                <h3>30% off</h3>
+                <h4>Muebles y deco</h4>
+                <p>Ver ofertas</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <a class="link-btn-wrapper" href="#">
+        <button class="link-btn">Ver más</button>
+      </a>
+      <div class="side-note-wrapper">
+        <div class="side-note">
+          (1)Imágenes de referencia.Válido en Argentina del 23/08 al 06/09/2021
+          para compras de productos seleccionados publicados en
+          http://www.mercadolibre.com.ar/ofertas/descuentazos. Ofertas a cargo
+          de cada usuario vendedor, sujetas a disponibilidad de los productos
+          ofertados y a las condiciones establecidas por el vendedor en el
+          anuncio publicado en el Sitio Web. (2) Costo Financiero Total (CFT)
+          0,00%. Tasa Nominal Anual (TNA) 0,00%. Cuotas para que aplique la
+          promoción: 6, 12, 18, 24 o 30 cuotas según indique cada producto.
+          Exclusivo para pagos online de productos nacionales seleccionados a
+          través de la plataforma de Mercadolibre S.R.L, con tarjetas de crédito
+          Mastercard, Visa, Cabal y American Express bancarias únicamente
+          emitidas y administradas por bancos autorizados en la Argentina.
+          Aplicable para tarjetas de crédito que se encuentren vigentes y en
+          estado de cumplimiento. Mas informacion en
+          https://www.argentina.gob.ar/ahora-12. Mercadolibre S.R.L., Avenida
+          Caseros 3039, piso 2, CABA, 30-70308853-4.
+        </div>
+      </div>
+    </main>
+    <div class="extra-links">
+      <div class="extra-links-switch">
+        <div class="mas-info">
+          <span class="mas-info-span"> Más información </span>
+          <i class="fas fa-chevron-down mas-info-icon"></i>
+        </div>
+      </div>
+      <div class="extra-links-cont">
+        <div class="extra-links-col">
+          <div class="extra-links-col-title">Acerca de</div>
+          <a href="#"><div class="extra-links-col-link">Mercado Libre</div></a>
+          <a href="#"
+            ><div class="extra-links-col-link">Investor relations</div></a
+          >
+          <a href="#"><div class="extra-links-col-link">Tendencias</div></a>
+          <a href="#"
+            ><div class="extra-links-col-link">Sustentabilidad</div></a
+          >
+        </div>
+        <div class="extra-links-col">
+          <div class="extra-links-col-title">Otros sitios</div>
+          <a href="#"><div class="extra-links-col-link">Developers</div></a>
+          <a href="#"><div class="extra-links-col-link">Mercado Pago</div></a>
+          <a href="#"><div class="extra-links-col-link">Mercado Shops</div></a>
+          <a href="#"><div class="extra-links-col-link">Mercado Envíos</div></a>
+          <a href="#"><div class="extra-links-col-link">Mercado Ads</div></a>
+          <a href="#"
+            ><div class="extra-links-col-link">Mercado Libre Ideas</div></a
+          >
+        </div>
+        <div class="extra-links-col">
+          <div class="extra-links-col-title">Ayuda</div>
+          <a href="#"><div class="extra-links-col-link">Compra</div></a>
+          <a href="#"><div class="extra-links-col-link">Vender</div></a>
+          <a href="#"
+            ><div class="extra-links-col-link">Resolución de problemas</div></a
+          >
+          <a href="#"
+            ><div class="extra-links-col-link">Centro de seguridad</div></a
+          >
+        </div>
+        <div class="extra-links-col">
+          <div class="extra-links-col-title">Redes sociales</div>
+          <a href="#"><div class="extra-links-col-link">Twitter</div></a>
+          <a href="#"><div class="extra-links-col-link">Facebook</div></a>
+          <a href="#"><div class="extra-links-col-link">Instagram</div></a>
+          <a href="#"><div class="extra-links-col-link">Youtube</div></a>
+        </div>
+        <div class="extra-links-col">
+          <div class="extra-links-col-title">Mi cuenta</div>
+          <a href="#"><div class="extra-links-col-link">Resumen</div></a>
+          <a href="#"><div class="extra-links-col-link">Favoritos</div></a>
+          <a href="#"><div class="extra-links-col-link">Vender</div></a>
+        </div>
+        <div class="extra-links-col">
+          <div class="extra-links-col-title">Mercado Puntos</div>
+          <a href="#"><div class="extra-links-col-link">HBO MAX</div></a>
+          <a href="#"><div class="extra-links-col-link">Disney+</div></a>
+          <a href="#"><div class="extra-links-col-link">Paramount+</div></a>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="footer-link-wrapper">
+        <div class="footer-link">Trabajá con nosotros</div>
+        <div class="footer-link">Términos y condiciones</div>
+        <div class="footer-link">Cómo cuidamos tu privacidad</div>
+        <div class="footer-link">Información al usuario financiero</div>
+        <div class="footer-link">Ayuda</div>
+        <div class="footer-link">Defensa del Consumidor</div>
+      </div>
+      <div class="footer-data-wrapper">
+        <div class="footer-data">
+          Copyright &copy; 1999-2021 MercadoLibre S.R.L.
+        </div>
+        <div class="footer-data">
+          Av. Caseros 3039, Piso 2. CP 1264, Parque Patricios, CABA
+        </div>
+        <div class="footer-data app-link">
+          <a href="#">¡Descargá gratis la app de Mercado Libre!</a>
+        </div>
+      </div>
+    </footer>
+    <div class="github-link">
+      <a target="_blank" href="https://github.com/jeronimoek/clon-ml">
+        <span role="img" aria-label="github" class="anticon anticon-github" style="font-size: 70px">
+          <svg viewBox="64 64 896 896" focusable="false" data-icon="github" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+            <path d="M511.6 76.3C264.3 76.2 64 276.4 64 523.5 64 718.9 189.3 885 363.8 946c23.5 5.9 19.9-10.8 19.9-22.2v-77.5c-135.7 15.9-141.2-73.9-150.3-88.9C215 726 171.5 718 184.5 703c30.9-15.9 62.4 4 98.9 57.9 26.4 39.1 77.9 32.5 104 26 5.7-23.5 17.9-44.5 34.7-60.8-140.6-25.2-199.2-111-199.2-213 0-49.5 16.3-95 48.3-131.7-20.4-60.5 1.9-112.3 4.9-120 58.1-5.2 118.5 41.6 123.2 45.3 33-8.9 70.7-13.6 112.9-13.6 42.4 0 80.2 4.9 113.5 13.9 11.3-8.6 67.3-48.8 121.3-43.9 2.9 7.7 24.7 58.3 5.5 118 32.4 36.8 48.9 82.7 48.9 132.3 0 102.2-59 188.1-200 212.9a127.5 127.5 0 0138.1 91v112.5c.8 9 0 17.9 15 17.9 177.1-59.7 304.6-227 304.6-424.1 0-247.2-200.4-447.3-447.5-447.3z">
+            </path>
+          </svg>
+        </span>
+      </a>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
