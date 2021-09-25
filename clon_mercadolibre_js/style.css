@@ -29,7 +29,7 @@ nav {
 #nav-logo {
   width: 134px;
   height: 34px;
-  background-image: url("https://automatas.duckdns.org/portfolio/clonml/img/logo__large_plus.png");
+  background-image: url("https://jeronimoek.github.io/clon_mercadolibre_js/img/logo__large_plus.png");
   background-repeat: no-repeat;
   flex: 2;
 }
@@ -832,7 +832,7 @@ footer {
   }
 
   #nav-logo {
-    background-image: url("https://automatas.duckdns.org/portfolio/clonml/img/logo_small.png");
+    background-image: url("https://jeronimoek.github.io/clon_mercadolibre_js/img/logo_small.png");
     min-width: 44px;
     height: 32px;
     align-self: center;
