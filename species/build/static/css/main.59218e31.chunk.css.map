@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/components/SpeciesItem.scss"],"names":[],"mappings":"AAAA,iBACE,YAAa,CACb,6BAA8B,CAC/B,UAGC,WAAY,CACZ,YAAa","file":"main.59218e31.chunk.css","sourcesContent":["div.registryCont{\r\n  display: flex;\r\n  justify-content: space-between;\r\n}\r\n\r\nimg.imgSp{\r\n  width: 200px;\r\n  height: 200px;\r\n}"]}
