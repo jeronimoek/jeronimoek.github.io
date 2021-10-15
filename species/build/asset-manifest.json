@@ -1,20 +1,17 @@
 {
   "files": {
-    "main.css": "/species/build/static/css/main.59218e31.chunk.css",
-    "main.js": "/species/build/static/js/main.755bd4d3.chunk.js",
-    "main.js.map": "/species/build/static/js/main.755bd4d3.chunk.js.map",
+    "main.js": "/species/build/static/js/main.ef5fe430.chunk.js",
+    "main.js.map": "/species/build/static/js/main.ef5fe430.chunk.js.map",
     "runtime-main.js": "/species/build/static/js/runtime-main.38fa9ffd.js",
     "runtime-main.js.map": "/species/build/static/js/runtime-main.38fa9ffd.js.map",
-    "static/js/2.de79c010.chunk.js": "/species/build/static/js/2.de79c010.chunk.js",
-    "static/js/2.de79c010.chunk.js.map": "/species/build/static/js/2.de79c010.chunk.js.map",
+    "static/js/2.c24f4edd.chunk.js": "/species/build/static/js/2.c24f4edd.chunk.js",
+    "static/js/2.c24f4edd.chunk.js.map": "/species/build/static/js/2.c24f4edd.chunk.js.map",
     "index.html": "/species/build/index.html",
-    "static/css/main.59218e31.chunk.css.map": "/species/build/static/css/main.59218e31.chunk.css.map",
-    "static/js/2.de79c010.chunk.js.LICENSE.txt": "/species/build/static/js/2.de79c010.chunk.js.LICENSE.txt"
+    "static/js/2.c24f4edd.chunk.js.LICENSE.txt": "/species/build/static/js/2.c24f4edd.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.38fa9ffd.js",
-    "static/js/2.de79c010.chunk.js",
-    "static/css/main.59218e31.chunk.css",
-    "static/js/main.755bd4d3.chunk.js"
+    "static/js/2.c24f4edd.chunk.js",
+    "static/js/main.ef5fe430.chunk.js"
   ]
 }
