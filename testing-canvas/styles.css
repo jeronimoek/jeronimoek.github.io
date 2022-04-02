@@ -1,0 +1,18 @@
+html {
+  box-sizing: border-box;
+}
+
+#canvas1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+fieldset {
+  position: relative;
+}
+
+input {
+}
