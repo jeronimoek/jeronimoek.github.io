@@ -68,15 +68,6 @@ function drawImage() {
       explosionPng.height / 4
     );
   }
-  var sound = new Audio("/../testing-canvas/audio/explosion.wav");
-  sound.preload = "auto";
-  sound.load();
-
-  function playSound(volume) {
-    var click = sound.cloneNode();
-    click.volume = volume;
-    click.play();
-  }
   function checkBallsCollission() {
     for (let i = 0; i < ballsArray.length; i++) {
       for (let j = i + 1; j < ballsArray.length; j++) {
@@ -135,6 +126,16 @@ function drawImage() {
     document.getElementById("Quantity").value = ballsQuantity;
     document.getElementById("Explosions").checked = hasExplosions;
   });
+}
+
+var sound = new Audio("/../testing-canvas/audio/explosion.wav");
+sound.preload = "auto";
+sound.load();
+
+function playSound(volume) {
+  var click = sound.cloneNode();
+  click.volume = volume;
+  click.play();
 }
 
 const fetchAsBlob = (url) => fetch(url).then((response) => response.blob());
