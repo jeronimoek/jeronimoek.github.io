@@ -131,9 +131,9 @@ function drawImage() {
     restart();
   });
 
-  document.getElementById("Reset").addEventListener("click", () => {
+  document.getElementById("Cancel").addEventListener("click", () => {
     document.getElementById("Quantity").value = ballsQuantity;
-    document.getElementById("Explosions").value = hasExplosions;
+    document.getElementById("Explosions").checked = hasExplosions;
   });
 }
 

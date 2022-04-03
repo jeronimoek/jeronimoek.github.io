@@ -3,6 +3,7 @@ const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 let particleArray = [];
+let hasLines = false;
 
 // mouse
 let mouse = {
@@ -23,6 +24,7 @@ function drawImage() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   let pastParticle = 0;
   let lastLine = 0;
+  let lastColumn = -1;
 
   class Particle {
     constructor(x, y, color, size) {
@@ -41,6 +43,8 @@ function drawImage() {
       }
       if (this.baseY !== lastLine) {
         lastLine = this.baseY;
+      } else if (this.baseX !== lastColumn + 8) {
+        lastColumn = this.baseX;
       } else {
         ctx.beginPath(); // Start a new path
         ctx.moveTo(
@@ -51,6 +55,7 @@ function drawImage() {
         ctx.strokeStyle = this.color;
         ctx.stroke();
         ctx.closePath();
+        lastColumn = this.baseX;
       }
       pastParticle = currentParticle;
     }
@@ -91,7 +96,7 @@ function drawImage() {
           this.y -= dy / 20;
         }
       }
-      this.drawLineWithPast(i);
+      hasLines && this.drawLineWithPast(i);
       this.draw();
     }
   }
@@ -134,12 +139,23 @@ function drawImage() {
   init();
   animate(animatedRunningCurrent);
 
-  window.addEventListener("resize", () => {
+  const restart = () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     init();
     animatedRunningCurrent++;
     animate(animatedRunningCurrent);
+  };
+
+  window.addEventListener("resize", restart);
+
+  document.getElementById("Ok").addEventListener("click", () => {
+    hasLines = document.getElementById("Lines").checked;
+    restart();
+  });
+
+  document.getElementById("Cancel").addEventListener("click", () => {
+    document.getElementById("Lines").checked = hasLines;
   });
 }
 
