@@ -6,6 +6,7 @@ let ballsQuantity = 2;
 let ballsArray = [];
 const ballsSize = 15;
 const explosionPng = new Image();
+let hasExplosions = true;
 
 function drawImage() {
   class Ball {
@@ -99,7 +100,7 @@ function drawImage() {
       requestAnimationFrame(() => animate(animatedRunning));
       ctx.fillStyle = "rgba(0,0,0,0.2)";
       ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
-      checkBallsCollission();
+      if (hasExplosions) checkBallsCollission();
       for (let i = 0; i < ballsArray.length; i++) {
         ballsArray[i].update();
         ballsArray[i].draw();
@@ -126,12 +127,13 @@ function drawImage() {
       quantity = 1;
     }
     ballsQuantity = quantity;
-    console.log(ballsQuantity);
+    hasExplosions = document.getElementById("Explosions").checked;
     restart();
   });
 
   document.getElementById("Reset").addEventListener("click", () => {
     document.getElementById("Quantity").value = ballsQuantity;
+    document.getElementById("Explosions").value = hasExplosions;
   });
 }
 
