@@ -3,6 +3,21 @@ const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 let ballsQuantity = 2;
+// Prueba 1: Funciona
+// const ballsData = [
+//   { x: 100, y: window.innerHeight - 300, velocityX: 3 },
+//   { x: 300, y: window.innerHeight - 300, velocityX: -1 },
+// ];
+// Prueba 2: SOLO primer colisión
+const ballsData = [
+  { x: 100, y: window.innerHeight - 301, velocityX: 1 },
+  { x: 300, y: window.innerHeight - 300, velocityX: -1 },
+];
+// Prueba 3:
+// const ballsData = [
+//   { x: 600, y: 150, velocityX: 10 },
+//   { x: 300, y: 370, velocityX: -10 },
+// ];
 let ballsArray = [];
 const ballsSize = 15;
 const explosionPng = new Image();
@@ -10,12 +25,12 @@ let hasExplosions = true;
 
 function drawImage() {
   class Ball {
-    constructor(x, y, color) {
+    constructor(x, y, color, velocityX) {
       this.x = x;
       this.y = y;
       this.color = color;
       this.size = ballsSize;
-      this.velocityX = Math.random() * 20 - 10;
+      this.velocityX = velocityX;
       this.velocityY = 0;
     }
     draw() {
@@ -48,14 +63,10 @@ function drawImage() {
   function init() {
     ballsArray = [];
 
-    for (let i = 0; i < ballsQuantity; i++) {
+    for (let i = 0; i < ballsData.length; i++) {
       let color = `hsl(${Math.round(Math.random() * 360)}, 100%, 50%)`;
       ballsArray.push(
-        new Ball(
-          ballsSize + Math.random() * (window.innerWidth - ballsSize * 2),
-          ballsSize + Math.random() * (window.innerHeight - ballsSize * 2),
-          color
-        )
+        new Ball(ballsData[i].x, ballsData[i].y, color, ballsData[i].velocityX)
       );
     }
   }
@@ -78,10 +89,17 @@ function drawImage() {
         const c = b1.y - b2.y;
         // <---
         const bSq = a ** 2 + c ** 2;
-        const minBSq = ballsSize ** 2;
+        const minBSq = (ballsSize * 2) ** 2;
         if (bSq < minBSq) {
-          console.log(JSON.stringify(b1), JSON.stringify(b2));
-          const ang = Math.atan(c / a); // 45 deg in rad
+          console.log(JSON.stringify(b1), JSON.stringify(b2), {
+            x: (b1.velocityX ** 2 + b2.velocityX ** 2) ** 0.5,
+            y: (b1.velocityY ** 2 + b2.velocityY ** 2) ** 0.5,
+            tot:
+              ((b1.velocityX ** 2 + b2.velocityX ** 2) ** 0.5 +
+                (b1.velocityY ** 2 + b2.velocityY ** 2) ** 0.5) **
+              0.5,
+          });
+          const ang = Math.atan(c / a);
           const b1VXNorm = b1.velocityX * Math.cos(ang);
           const b1VYNorm = b1.velocityY * Math.sin(ang);
 
@@ -99,15 +117,21 @@ function drawImage() {
           const b2SumNorm = b1VXNorm + b1VYNorm;
           const b2SumTang = b2VXTang + b2VYTang;
 
-          const b1VxSum = b1SumNorm / Math.cos(ang) + b1SumTang / Math.sin(ang);
-          const b1VySum = b1SumNorm / Math.sin(ang) + b1SumTang / Math.cos(ang);
-          const b2VxSum = b2SumNorm / Math.cos(ang) + b2SumTang / Math.sin(ang);
-          const b2VySum = b2SumNorm / Math.sin(ang) + b2SumTang / Math.cos(ang);
+          // -1.2848950984468495 / Math.cos(0.03569911267932397) + (0.03569911267932397 ? -7.959211304267984 / Math.sin(0.03569911267932397) : 0)
+          // -224.28571428571425
+          const b1VxSum = b1SumNorm * Math.cos(ang) + b1SumTang * Math.sin(ang);
+          const b1VySum = b1SumNorm * Math.sin(ang) + b1SumTang * Math.cos(ang);
+          const b2VxSum = b2SumNorm * Math.cos(ang) + b2SumTang * Math.sin(ang);
+          const b2VySum = b2SumNorm * Math.sin(ang) + b2SumTang * Math.cos(ang);
+          // const b1VxSum = b1SumNorm / Math.cos(ang);
+          // const b1VySum = ang ? b1SumNorm / Math.sin(ang) : 0;
+          // const b2VxSum = b2SumNorm / Math.cos(ang);
+          // const b2VySum = ang ? b2SumNorm / Math.sin(ang) : 0;
 
-          b1.velocityX += b1VxSum;
-          b1.velocityY += b1VySum;
-          b2.velocityX += b2VxSum;
-          b2.velocityY += b2VySum;
+          b1.velocityX = b1VxSum;
+          b1.velocityY = b1VySum;
+          b2.velocityX = b2VxSum;
+          b2.velocityY = b2VySum;
           console.log({
             a,
             c,
@@ -134,6 +158,14 @@ function drawImage() {
             b1VelocityY: b1.velocityY,
             b2VelocityX: b2.velocityX,
             b2VelocityY: b2.velocityY,
+            verify: {
+              x: (b1.velocityX ** 2 + b2.velocityX ** 2) ** 0.5,
+              y: (b1.velocityY ** 2 + b2.velocityY ** 2) ** 0.5,
+              tot:
+                ((b1.velocityX ** 2 + b2.velocityX ** 2) ** 0.5 +
+                  (b1.velocityY ** 2 + b2.velocityY ** 2) ** 0.5) **
+                0.5,
+            },
           });
           // explosion(b1.x, b1.y);
           // playSound(0.2);
@@ -148,7 +180,7 @@ function drawImage() {
   function animate(animatedRunning) {
     if (animatedRunning === animatedRunningCurrent) {
       requestAnimationFrame(() => animate(animatedRunning));
-      ctx.fillStyle = "rgba(0,0,0,0.2)";
+      ctx.fillStyle = "rgba(0,0,0,1)";
       ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
       if (hasExplosions) checkBallsCollission();
       for (let i = 0; i < ballsArray.length; i++) {
