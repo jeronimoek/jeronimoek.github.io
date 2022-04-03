@@ -159,7 +159,7 @@ const convertBlobToBase64 = (blob) =>
 
 window.addEventListener("load", (event) => {
   console.log("page has loaded");
-  fetchAsBlob(`./images/amapola.png`)
+  fetchAsBlob("/../testing-canvas/images/spiderman2.png")
     .then(convertBlobToBase64)
     .then((base64) => {
       png.src = base64;

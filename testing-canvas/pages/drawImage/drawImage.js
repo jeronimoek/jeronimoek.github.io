@@ -26,8 +26,6 @@ function drawImage() {
     constructor(x, y, color, size) {
       this.x = x + canvas.width / 2 - png.width * 2;
       this.y = y + canvas.height / 2 - png.height * 2;
-      // this.x = x;
-      // this.y = y;
       this.color = color;
       this.size = 2;
       this.baseX = this.x;
@@ -99,7 +97,7 @@ const convertBlobToBase64 = (blob) =>
 
 window.addEventListener("load", (event) => {
   console.log("page has loaded");
-  fetchAsBlob(`./images/spiderman2.png`)
+  fetchAsBlob(`/../testing-canvas/images/spiderman2.png`)
     .then(convertBlobToBase64)
     .then((base64) => {
       console.log(base64);

@@ -68,7 +68,7 @@ function drawImage() {
       explosionPng.height / 4
     );
   }
-  var sound = new Audio("./audio/explosion.wav");
+  var sound = new Audio("/../testing-canvas/audio/explosion.wav");
   sound.preload = "auto";
   sound.load();
 
@@ -151,7 +151,7 @@ const convertBlobToBase64 = (blob) =>
 
 window.addEventListener("load", (event) => {
   console.log("page has loaded");
-  fetchAsBlob(`./images/explosion.png`)
+  fetchAsBlob(`/../testing-canvas/images/explosion.png`)
     .then(convertBlobToBase64)
     .then((base64) => {
       explosionPng.src = base64;
