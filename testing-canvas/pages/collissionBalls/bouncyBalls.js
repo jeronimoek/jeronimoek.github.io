@@ -71,16 +71,75 @@ function drawImage() {
   function checkBallsCollission() {
     for (let i = 0; i < ballsArray.length; i++) {
       for (let j = i + 1; j < ballsArray.length; j++) {
-        const a = ballsArray[i].x - ballsArray[j].x;
-        const c = ballsArray[i].y - ballsArray[j].y;
-        const b2 = Math.pow(a, 2) + Math.pow(c, 2);
-        const minB2 = Math.pow(ballsSize, 2);
-        if (b2 < minB2) {
-          explosion(ballsArray[i].x, ballsArray[i].y);
-          playSound(0.2);
-          ballsArray = ballsArray.filter(
-            (_v, index) => index !== i && index !== j
-          );
+        const b1 = ballsArray[i];
+        const b2 = ballsArray[j];
+        // TODO: puede que esto este mal y haya que cambiar de lado b1 b2 --->
+        const a = b1.x - b2.x;
+        const c = b1.y - b2.y;
+        // <---
+        const bSq = a ** 2 + c ** 2;
+        const minBSq = ballsSize ** 2;
+        if (bSq < minBSq) {
+          console.log(JSON.stringify(b1), JSON.stringify(b2));
+          const ang = Math.atan(c / a); // 45 deg in rad
+          const b1VXNorm = b1.velocityX * Math.cos(ang);
+          const b1VYNorm = b1.velocityY * Math.sin(ang);
+
+          const b2VXNorm = b2.velocityX * Math.cos(ang);
+          const b2VYNorm = b2.velocityY * Math.sin(ang);
+
+          const b1VXTang = b1.velocityX * Math.sin(ang);
+          const b1VYTang = b1.velocityY * Math.cos(ang);
+
+          const b2VXTang = b2.velocityX * Math.sin(ang);
+          const b2VYTang = b2.velocityY * Math.cos(ang);
+
+          const b1SumNorm = b2VXNorm + b2VYNorm;
+          const b1SumTang = b1VXTang + b1VYTang;
+          const b2SumNorm = b1VXNorm + b1VYNorm;
+          const b2SumTang = b2VXTang + b2VYTang;
+
+          const b1VxSum = b1SumNorm / Math.cos(ang) + b1SumTang / Math.sin(ang);
+          const b1VySum = b1SumNorm / Math.sin(ang) + b1SumTang / Math.cos(ang);
+          const b2VxSum = b2SumNorm / Math.cos(ang) + b2SumTang / Math.sin(ang);
+          const b2VySum = b2SumNorm / Math.sin(ang) + b2SumTang / Math.cos(ang);
+
+          b1.velocityX += b1VxSum;
+          b1.velocityY += b1VySum;
+          b2.velocityX += b2VxSum;
+          b2.velocityY += b2VySum;
+          console.log({
+            a,
+            c,
+            bSq,
+            minBSq,
+            ang,
+            b1VXNorm,
+            b1VYNorm,
+            b2VXNorm,
+            b2VYNorm,
+            b1VXTang,
+            b1VYTang,
+            b2VXTang,
+            b2VYTang,
+            b1SumNorm,
+            b1SumTang,
+            b2SumNorm,
+            b2SumTang,
+            b1VxSum,
+            b1VySum,
+            b2VxSum,
+            b2VySum,
+            b1VelocityX: b1.velocityX,
+            b1VelocityY: b1.velocityY,
+            b2VelocityX: b2.velocityX,
+            b2VelocityY: b2.velocityY,
+          });
+          // explosion(b1.x, b1.y);
+          // playSound(0.2);
+          // ballsArray = ballsArray.filter(
+          //   (_v, index) => index !== i && index !== j
+          // );
         }
       }
     }
