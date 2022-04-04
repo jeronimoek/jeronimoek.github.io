@@ -9,15 +9,19 @@ let ballsQuantity = 2;
 //   { x: 300, y: window.innerHeight - 300, velocityX: -1 },
 // ];
 // Prueba 2: SOLO primer colisión
-const ballsData = [
-  { x: 100, y: window.innerHeight - 301, velocityX: 1 },
-  { x: 300, y: window.innerHeight - 300, velocityX: -1 },
-];
+// const ballsData = [
+//   { x: 100, y: window.innerHeight - 301, velocityX: 1 },
+//   { x: 300, y: window.innerHeight - 300, velocityX: -1 },
+// ];
 // Prueba 3:
 // const ballsData = [
 //   { x: 600, y: 150, velocityX: 10 },
 //   { x: 300, y: 370, velocityX: -10 },
 // ];
+const ballsData = [
+  { x: 100, y: 200, velocityX: 0 },
+  { x: 170, y: 224, velocityX: -10 },
+];
 let ballsArray = [];
 const ballsSize = 15;
 const explosionPng = new Image();
@@ -44,16 +48,23 @@ function drawImage() {
 
       // collission detection with borders
       if (this.y + this.size > window.innerHeight && this.velocityY > 0) {
-        this.velocityY = -this.velocityY + 1;
-      } else if (
-        this.y + this.size < window.innerHeight + 2 &&
-        this.y + this.size > window.innerHeight - 2
-      ) {
+        // this.velocityY = -this.velocityY + 1;
+        console.log("here2");
         this.y = window.innerHeight - this.size;
-      } else {
-        this.velocityY += 1;
+        this.velocityY = -this.velocityY;
+      } else if (this.y - this.size < 0) {
+        this.y = 0 + this.size;
+        this.velocityY = -this.velocityY;
+      } else if (
+        !(
+          this.y + this.size < window.innerHeight - 2 &&
+          this.y + this.size > window.innerHeight + 2
+        )
+      ) {
+        // this.velocityY += 1;
       }
       if (this.x + this.size > window.innerWidth || this.x - this.size < 0) {
+        console.log("here1");
         this.velocityX = -this.velocityX;
       }
       this.y += this.velocityY;
@@ -85,88 +96,96 @@ function drawImage() {
         const b1 = ballsArray[i];
         const b2 = ballsArray[j];
         // TODO: puede que esto este mal y haya que cambiar de lado b1 b2 --->
-        const a = b1.x - b2.x;
-        const c = b1.y - b2.y;
+        const a = b2.x - b1.x;
+        const c = b2.y - b1.y;
         // <---
         const bSq = a ** 2 + c ** 2;
         const minBSq = (ballsSize * 2) ** 2;
         if (bSq < minBSq) {
-          console.log(JSON.stringify(b1), JSON.stringify(b2), {
-            x: (b1.velocityX ** 2 + b2.velocityX ** 2) ** 0.5,
-            y: (b1.velocityY ** 2 + b2.velocityY ** 2) ** 0.5,
-            tot:
-              ((b1.velocityX ** 2 + b2.velocityX ** 2) ** 0.5 +
-                (b1.velocityY ** 2 + b2.velocityY ** 2) ** 0.5) **
-              0.5,
-          });
-          const ang = Math.atan(c / a);
-          const b1VXNorm = b1.velocityX * Math.cos(ang);
-          const b1VYNorm = b1.velocityY * Math.sin(ang);
+          // console.log(JSON.stringify(b1), JSON.stringify(b2), {
+          //   x: (b1.velocityX ** 2 + b2.velocityX ** 2) ** 0.5,
+          //   y: (b1.velocityY ** 2 + b2.velocityY ** 2) ** 0.5,
+          //   tot:
+          //     (b1.velocityX ** 2 + b1.velocityY ** 2) ** 0.5 +
+          //     (b2.velocityX ** 2 + b2.velocityY ** 2) ** 0.5,
+          // });
+          // const ang = Math.atan(c / a);
+          // const b1VXNorm = b1.velocityX * Math.cos(ang);
+          // const b1VYNorm = b1.velocityY * Math.sin(ang);
 
-          const b2VXNorm = b2.velocityX * Math.cos(ang);
-          const b2VYNorm = b2.velocityY * Math.sin(ang);
+          // const b2VXNorm = b2.velocityX * Math.cos(ang);
+          // const b2VYNorm = b2.velocityY * Math.sin(ang);
 
-          const b1VXTang = b1.velocityX * Math.sin(ang);
-          const b1VYTang = b1.velocityY * Math.cos(ang);
+          // const b1SumNorm = b2VXNorm + b2VYNorm;
+          // const b2SumNorm = b1VXNorm + b1VYNorm;
 
-          const b2VXTang = b2.velocityX * Math.sin(ang);
-          const b2VYTang = b2.velocityY * Math.cos(ang);
+          // const b1VxSum = b1SumNorm * Math.cos(ang);
+          // const b1VySum = b1SumNorm * Math.sin(ang);
+          // const b2VxSum = b2SumNorm * Math.cos(ang);
+          // const b2VySum = b2SumNorm * Math.sin(ang);
 
-          const b1SumNorm = b2VXNorm + b2VYNorm;
-          const b1SumTang = b1VXTang + b1VYTang;
-          const b2SumNorm = b1VXNorm + b1VYNorm;
-          const b2SumTang = b2VXTang + b2VYTang;
+          // b1.velocityX += b1VxSum;
+          // b1.velocityY += b1VySum;
+          // b2.velocityX += b2VxSum;
+          // b2.velocityY += b2VySum;
+          const b1VVal = (b1.velocityX ** 2 + b1.velocityY ** 2) ** 0.5;
+          const b1VAng = Math.atan2(b1.velocityY, b1.velocityX);
+          const b2VVal = (b2.velocityX ** 2 + b2.velocityY ** 2) ** 0.5;
+          const b2VAng = Math.atan2(b2.velocityY, b2.velocityX);
+          const normAng = Math.atan2(c, a);
+          const b1VToNormAng = b1VAng - normAng;
+          const b1VNormVal = b1VVal * Math.cos(b1VToNormAng);
+          const b1VTangVal = b1VVal * Math.sin(b1VToNormAng);
+          const b2VToNormAng = b2VAng - normAng;
+          const b2VNormVal = b2VVal * Math.cos(b2VToNormAng);
+          const b2VTangVal = b2VVal * Math.sin(b2VToNormAng);
+          const b1VFinalVal = (b1VTangVal ** 2 + b2VNormVal ** 2) ** 0.5;
+          const b1VFinalAngToX = Math.atan2(b1VTangVal, b2VNormVal) + normAng;
+          const b2VFinalVal = (b2VTangVal ** 2 + b1VNormVal ** 2) ** 0.5;
+          const b2VFinalAngToX = Math.atan2(b2VTangVal, b1VNormVal) + normAng;
+          const b1VFinalValX = b1VFinalVal * Math.cos(b1VFinalAngToX);
+          const b1VFinalValY = b1VFinalVal * Math.sin(b1VFinalAngToX);
+          const b2VFinalValX = b2VFinalVal * Math.cos(b2VFinalAngToX);
+          const b2VFinalValY = b2VFinalVal * Math.sin(b2VFinalAngToX);
+          b1.velocityX = b1VFinalValX;
+          b1.velocityY = b1VFinalValY;
+          b2.velocityX = b2VFinalValX;
+          b2.velocityY = b2VFinalValY;
 
-          // -1.2848950984468495 / Math.cos(0.03569911267932397) + (0.03569911267932397 ? -7.959211304267984 / Math.sin(0.03569911267932397) : 0)
-          // -224.28571428571425
-          const b1VxSum = b1SumNorm * Math.cos(ang) + b1SumTang * Math.sin(ang);
-          const b1VySum = b1SumNorm * Math.sin(ang) + b1SumTang * Math.cos(ang);
-          const b2VxSum = b2SumNorm * Math.cos(ang) + b2SumTang * Math.sin(ang);
-          const b2VySum = b2SumNorm * Math.sin(ang) + b2SumTang * Math.cos(ang);
-          // const b1VxSum = b1SumNorm / Math.cos(ang);
-          // const b1VySum = ang ? b1SumNorm / Math.sin(ang) : 0;
-          // const b2VxSum = b2SumNorm / Math.cos(ang);
-          // const b2VySum = ang ? b2SumNorm / Math.sin(ang) : 0;
-
-          b1.velocityX = b1VxSum;
-          b1.velocityY = b1VySum;
-          b2.velocityX = b2VxSum;
-          b2.velocityY = b2VySum;
-          console.log({
-            a,
-            c,
-            bSq,
-            minBSq,
-            ang,
-            b1VXNorm,
-            b1VYNorm,
-            b2VXNorm,
-            b2VYNorm,
-            b1VXTang,
-            b1VYTang,
-            b2VXTang,
-            b2VYTang,
-            b1SumNorm,
-            b1SumTang,
-            b2SumNorm,
-            b2SumTang,
-            b1VxSum,
-            b1VySum,
-            b2VxSum,
-            b2VySum,
-            b1VelocityX: b1.velocityX,
-            b1VelocityY: b1.velocityY,
-            b2VelocityX: b2.velocityX,
-            b2VelocityY: b2.velocityY,
-            verify: {
-              x: (b1.velocityX ** 2 + b2.velocityX ** 2) ** 0.5,
-              y: (b1.velocityY ** 2 + b2.velocityY ** 2) ** 0.5,
-              tot:
-                ((b1.velocityX ** 2 + b2.velocityX ** 2) ** 0.5 +
-                  (b1.velocityY ** 2 + b2.velocityY ** 2) ** 0.5) **
-                0.5,
-            },
-          });
+          // console.log({
+          //   a,
+          //   c,
+          //   bSq,
+          //   minBSq,
+          //   ang,
+          //   b1VXNorm,
+          //   b1VYNorm,
+          //   b2VXNorm,
+          //   b2VYNorm,
+          //   b1VXTang,
+          //   b1VYTang,
+          //   b2VXTang,
+          //   b2VYTang,
+          //   b1SumNorm,
+          //   b1SumTang,
+          //   b2SumNorm,
+          //   b2SumTang,
+          //   b1VxSum,
+          //   b1VySum,
+          //   b2VxSum,
+          //   b2VySum,
+          //   b1VelocityX: b1.velocityX,
+          //   b1VelocityY: b1.velocityY,
+          //   b2VelocityX: b2.velocityX,
+          //   b2VelocityY: b2.velocityY,
+          //   verify: {
+          //     x: (b1.velocityX ** 2 + b2.velocityX ** 2) ** 0.5,
+          //     y: (b1.velocityY ** 2 + b2.velocityY ** 2) ** 0.5,
+          //     tot:
+          //       (b1.velocityX ** 2 + b1.velocityY ** 2) ** 0.5 +
+          //       (b2.velocityX ** 2 + b2.velocityY ** 2) ** 0.5,
+          //   },
+          // });
           // explosion(b1.x, b1.y);
           // playSound(0.2);
           // ballsArray = ballsArray.filter(
