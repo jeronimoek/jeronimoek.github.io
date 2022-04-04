@@ -8,20 +8,21 @@ let ballsQuantity = 2;
 //   { x: 100, y: window.innerHeight - 300, velocityX: 3 },
 //   { x: 300, y: window.innerHeight - 300, velocityX: -1 },
 // ];
-// Prueba 2: SOLO primer colisión
+// Prueba 2: masomenos
 // const ballsData = [
 //   { x: 100, y: window.innerHeight - 325, velocityX: 10 },
 //   { x: 300, y: window.innerHeight - 300, velocityX: -1 },
 // ];
-// Prueba 3:
+// Prueba 3: Funciona
 // const ballsData = [
 //   { x: 600, y: 150, velocityX: 10 },
 //   { x: 300, y: 370, velocityX: -10 },
 // ];
-const ballsData = [
-  { x: 100, y: 200, velocityX: 0 },
-  { x: 170, y: 224, velocityX: -10 },
-];
+// Prueba 4: Funciona
+// const ballsData = [
+//   { x: 100, y: 200, velocityX: 0 },
+//   { x: 170, y: 224, velocityX: -10 },
+// ];
 let ballsArray = [];
 const ballsSize = 15;
 const explosionPng = new Image();
@@ -48,7 +49,7 @@ function drawImage() {
 
       // collission detection with borders
       if (this.y + this.size > window.innerHeight && this.velocityY >= 0) {
-        console.log("here2");
+        // console.log("here2");
         this.y = window.innerHeight - this.size + 1;
         this.velocityY = -this.velocityY + 1;
       } else if (this.y - this.size < 0) {
@@ -62,9 +63,13 @@ function drawImage() {
       ) {
         this.velocityY += 1;
       }
-      if (this.x + this.size > window.innerWidth || this.x - this.size < 0) {
-        console.log("here1");
+      if (this.x + this.size > window.innerWidth) {
+        // console.log("here1");
+        this.x = window.innerWidth - this.size;
         this.velocityX = -this.velocityX;
+      } else if (this.x - this.size < 0) {
+        this.velocityX = -this.velocityX;
+        this.x = this.size;
       }
       this.y += this.velocityY;
       this.x += this.velocityX;
@@ -73,10 +78,16 @@ function drawImage() {
   function init() {
     ballsArray = [];
 
-    for (let i = 0; i < ballsData.length; i++) {
+    // for (let i = 0; i < ballsData.length; i++) {
+    for (let i = 0; i < ballsQuantity; i++) {
       let color = `hsl(${Math.round(Math.random() * 360)}, 100%, 50%)`;
       ballsArray.push(
-        new Ball(ballsData[i].x, ballsData[i].y, color, ballsData[i].velocityX)
+        new Ball(
+          ballsSize + Math.random() * (window.innerWidth - ballsSize * 2),
+          ballsSize + Math.random() * (window.innerHeight - ballsSize * 2),
+          color,
+          Math.random() * 20
+        )
       );
     }
   }
@@ -92,6 +103,7 @@ function drawImage() {
   function checkBallsCollission() {
     for (let i = 0; i < ballsArray.length; i++) {
       for (let j = i + 1; j < ballsArray.length; j++) {
+        console.log(i, j);
         const b1 = ballsArray[i];
         const b2 = ballsArray[j];
         // TODO: puede que esto este mal y haya que cambiar de lado b1 b2 --->
@@ -101,12 +113,12 @@ function drawImage() {
         const bSq = a ** 2 + c ** 2;
         const minBSq = (ballsSize * 2) ** 2;
         if (bSq < minBSq) {
-          console.log(JSON.stringify(b1), JSON.stringify(b2), {
-            verify: {
-              x: b1.velocityX + b2.velocityX,
-              y: b1.velocityY + b2.velocityY,
-            },
-          });
+          // console.log(JSON.stringify(b1), JSON.stringify(b2), {
+          //   verify: {
+          //     x: b1.velocityX + b2.velocityX,
+          //     y: b1.velocityY + b2.velocityY,
+          //   },
+          // });
 
           // Calculo el pase de velocidades entre las bolas
           const b1VVal = (b1.velocityX ** 2 + b1.velocityY ** 2) ** 0.5;
@@ -138,17 +150,30 @@ function drawImage() {
           const ammountOfSeparation = ballsSize * 2 - bSq ** 0.5;
           const separationX = ammountOfSeparation * Math.cos(normAng);
           const separationY = ammountOfSeparation * Math.sin(normAng);
-          b1.x += b1VFinalValX;
-          b1.y += b1VFinalValY;
-          b2.x += b2VFinalValX;
-          b2.y += b2VFinalValY;
+          b1.x += separationX;
+          b1.y += separationY;
+          b2.x += separationX;
+          b2.y += separationY;
+          ctx.strokeStyle = "white";
+          ctx.beginPath(); // Start a new path
+          ctx.moveTo(b1.x, b1.y); // Move the pen to (30, 50)
+          ctx.lineTo(b1.x + b1.velocityX * 5, b1.y + b1.velocityY * 5); // Draw a line to (150, 100)
+          ctx.lineWidth = 15;
+          ctx.stroke();
+          ctx.strokeStyle = "red";
+          ctx.beginPath(); // Start a new path
+          ctx.moveTo(b2.x, b2.y); // Move the pen to (30, 50)
+          ctx.lineTo(b2.x + b2.velocityX * 5, b2.y + b2.velocityY * 5); // Draw a line to (150, 100)
+          ctx.lineWidth = 15;
+          ctx.stroke();
+          // setTimeout(alert, 1);
 
-          console.log({
-            verify: {
-              x: b1.velocityX + b2.velocityX,
-              y: b1.velocityY + b2.velocityY,
-            },
-          });
+          // console.log({
+          //   verify: {
+          //     x: b1.velocityX + b2.velocityX,
+          //     y: b1.velocityY + b2.velocityY,
+          //   },
+          // });
           // explosion(b1.x, b1.y);
           // playSound(0.2);
           // ballsArray = ballsArray.filter(
@@ -162,13 +187,13 @@ function drawImage() {
   function animate(animatedRunning) {
     if (animatedRunning === animatedRunningCurrent) {
       requestAnimationFrame(() => animate(animatedRunning));
-      ctx.fillStyle = "rgba(0,0,0,1)";
+      ctx.fillStyle = "rgba(0,0,0,0.1)";
       ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
-      if (hasExplosions) checkBallsCollission();
       for (let i = 0; i < ballsArray.length; i++) {
         ballsArray[i].update();
         ballsArray[i].draw();
       }
+      if (hasExplosions) checkBallsCollission();
     }
   }
   init();
