@@ -10,7 +10,7 @@ let ballsQuantity = 2;
 // ];
 // Prueba 2: SOLO primer colisión
 // const ballsData = [
-//   { x: 100, y: window.innerHeight - 301, velocityX: 1 },
+//   { x: 100, y: window.innerHeight - 325, velocityX: 10 },
 //   { x: 300, y: window.innerHeight - 300, velocityX: -1 },
 // ];
 // Prueba 3:
@@ -47,11 +47,10 @@ function drawImage() {
       ctx.fillStyle = this.color;
 
       // collission detection with borders
-      if (this.y + this.size > window.innerHeight && this.velocityY > 0) {
-        // this.velocityY = -this.velocityY + 1;
+      if (this.y + this.size > window.innerHeight && this.velocityY >= 0) {
         console.log("here2");
-        this.y = window.innerHeight - this.size;
-        this.velocityY = -this.velocityY;
+        this.y = window.innerHeight - this.size + 1;
+        this.velocityY = -this.velocityY + 1;
       } else if (this.y - this.size < 0) {
         this.y = 0 + this.size;
         this.velocityY = -this.velocityY;
@@ -61,7 +60,7 @@ function drawImage() {
           this.y + this.size > window.innerHeight + 2
         )
       ) {
-        // this.velocityY += 1;
+        this.velocityY += 1;
       }
       if (this.x + this.size > window.innerWidth || this.x - this.size < 0) {
         console.log("here1");
@@ -102,32 +101,14 @@ function drawImage() {
         const bSq = a ** 2 + c ** 2;
         const minBSq = (ballsSize * 2) ** 2;
         if (bSq < minBSq) {
-          // console.log(JSON.stringify(b1), JSON.stringify(b2), {
-          //   x: (b1.velocityX ** 2 + b2.velocityX ** 2) ** 0.5,
-          //   y: (b1.velocityY ** 2 + b2.velocityY ** 2) ** 0.5,
-          //   tot:
-          //     (b1.velocityX ** 2 + b1.velocityY ** 2) ** 0.5 +
-          //     (b2.velocityX ** 2 + b2.velocityY ** 2) ** 0.5,
-          // });
-          // const ang = Math.atan(c / a);
-          // const b1VXNorm = b1.velocityX * Math.cos(ang);
-          // const b1VYNorm = b1.velocityY * Math.sin(ang);
+          console.log(JSON.stringify(b1), JSON.stringify(b2), {
+            verify: {
+              x: b1.velocityX + b2.velocityX,
+              y: b1.velocityY + b2.velocityY,
+            },
+          });
 
-          // const b2VXNorm = b2.velocityX * Math.cos(ang);
-          // const b2VYNorm = b2.velocityY * Math.sin(ang);
-
-          // const b1SumNorm = b2VXNorm + b2VYNorm;
-          // const b2SumNorm = b1VXNorm + b1VYNorm;
-
-          // const b1VxSum = b1SumNorm * Math.cos(ang);
-          // const b1VySum = b1SumNorm * Math.sin(ang);
-          // const b2VxSum = b2SumNorm * Math.cos(ang);
-          // const b2VySum = b2SumNorm * Math.sin(ang);
-
-          // b1.velocityX += b1VxSum;
-          // b1.velocityY += b1VySum;
-          // b2.velocityX += b2VxSum;
-          // b2.velocityY += b2VySum;
+          // Calculo el pase de velocidades entre las bolas
           const b1VVal = (b1.velocityX ** 2 + b1.velocityY ** 2) ** 0.5;
           const b1VAng = Math.atan2(b1.velocityY, b1.velocityX);
           const b2VVal = (b2.velocityX ** 2 + b2.velocityY ** 2) ** 0.5;
@@ -152,40 +133,22 @@ function drawImage() {
           b2.velocityX = b2VFinalValX;
           b2.velocityY = b2VFinalValY;
 
-          // console.log({
-          //   a,
-          //   c,
-          //   bSq,
-          //   minBSq,
-          //   ang,
-          //   b1VXNorm,
-          //   b1VYNorm,
-          //   b2VXNorm,
-          //   b2VYNorm,
-          //   b1VXTang,
-          //   b1VYTang,
-          //   b2VXTang,
-          //   b2VYTang,
-          //   b1SumNorm,
-          //   b1SumTang,
-          //   b2SumNorm,
-          //   b2SumTang,
-          //   b1VxSum,
-          //   b1VySum,
-          //   b2VxSum,
-          //   b2VySum,
-          //   b1VelocityX: b1.velocityX,
-          //   b1VelocityY: b1.velocityY,
-          //   b2VelocityX: b2.velocityX,
-          //   b2VelocityY: b2.velocityY,
-          //   verify: {
-          //     x: (b1.velocityX ** 2 + b2.velocityX ** 2) ** 0.5,
-          //     y: (b1.velocityY ** 2 + b2.velocityY ** 2) ** 0.5,
-          //     tot:
-          //       (b1.velocityX ** 2 + b1.velocityY ** 2) ** 0.5 +
-          //       (b2.velocityX ** 2 + b2.velocityY ** 2) ** 0.5,
-          //   },
-          // });
+          // Evito el bug de cuando se solapan continuamente
+          // Las muevo en la direccion de la reacción hasta sus limites.
+          const ammountOfSeparation = ballsSize * 2 - bSq ** 0.5;
+          const separationX = ammountOfSeparation * Math.cos(normAng);
+          const separationY = ammountOfSeparation * Math.sin(normAng);
+          b1.x += b1VFinalValX;
+          b1.y += b1VFinalValY;
+          b2.x += b2VFinalValX;
+          b2.y += b2VFinalValY;
+
+          console.log({
+            verify: {
+              x: b1.velocityX + b2.velocityX,
+              y: b1.velocityY + b2.velocityY,
+            },
+          });
           // explosion(b1.x, b1.y);
           // playSound(0.2);
           // ballsArray = ballsArray.filter(
