@@ -14,7 +14,8 @@
         background-color: white;
         position: absolute;
         padding: 10px;
-        width: min-content;
+        width: 300px;
+        opacity: 0.8;
       "
     >
       <label for="Quantity">Number of balls</label>
@@ -27,14 +28,20 @@
         style="display: block; margin: 0 0 5px"
       />
       <label for="Explosions">Has explosions</label>
-      <input id="Explosions" name="Explosions" type="checkbox" checked="true" />
+      <input id="Explosions" name="Explosions" type="checkbox" checked />
+      <br>
+      <label for="Collisions">Has collisions <span style="color: red">experimental!</span> </label>
+      <input id="Collisions" name="Collisions" type="checkbox"/>
+      <br>
+      <label for="Gravity">Has gravity</label>
+      <input id="Gravity" name="Gravity" type="checkbox" checked/>
       <div
         style="display: flex; justify-content: space-between; margin-top: 20px"
       >
         <button id="Cancel">CANCEL</button>
         <button id="Ok">OK</button>
       </div>
-    </div>
+    </br>
 
     <script src="bouncyBalls.js"></script>
   </body>
