@@ -3,6 +3,7 @@ const people = ['Jero','Senen','Manu','Miguel']
 
 
 const now = new Date()
+now.setDate(now.getDate() - 14)
 for(let i = 0; i < 20; i++){
     now.setDate(now.getDate() - now.getDay() + 1)
     const firstDay = `${now.getDate()}/${now.getMonth()+1}`
